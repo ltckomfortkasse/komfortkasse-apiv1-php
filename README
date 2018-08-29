@@ -1,0 +1,54 @@
+Komfortkasse PHP Example for "Generic" (API) Access
+
+You need:
+- a webserver with PHP
+- a valid Komfortkasse login
+- the API Key and Accesscode of your Komfortkasse dealer account
+
+You don't need:
+- mysql (or any other database)
+
+
+Instructions:
+=============
+
+1.
+Copy these files to a folder of your webserver. The webserver must be reachable
+from the internet if you want to test full functionality.
+
+2.
+Enter your API Key and Accesscode in the file komfortkasse_settings.php
+
+3.
+Open komfortkasse_send.php in a browser: this will send an example order to 
+your Komfortkasse account. (Every newly generated order number will be stored 
+in the file order_numbers.txt.)
+Warning! this will be a "real" order, but you can mark this order as cancelled 
+later on. Please contact support if you want to permanently delete those 
+example orders.
+
+4.
+Open your Komfortkasse Dealer Area and set the URL of your server and the 
+path of the file komfortkasse_receive.php in the API settings.
+Example: /your/path/komfortkasse_receive.php
+
+5.
+Click "Read orders" in the Komfortkasse Dealer Area. You should get a message 
+saying "No new orders read".
+
+6.
+Now add a order number of your choice to the file order_numbers.txt. This 
+simulates a order that has been added, but not transferred via API (e.g.
+because there was a network problem). Open your Komfortkasse Dealer Area and
+select "Read orders" again. You should now see a message saying "1 new orders 
+read." 
+
+7.
+Mark one of the orders as paid in your Komfortkasse Dealer Area (select 
+"orders" in the main menu, select an order, then click "Mark as paid"). Then 
+click "Perform update". You should see a message "1 orders updated".
+Plus, the order number and payment status was written to the file 
+received_updates.txt. You can repeat this step with cancelling an order.
+
+If all the above steps are working, the PHP test environment for Komfortkasse
+works. You can now start to integrate your real system into those php files.
