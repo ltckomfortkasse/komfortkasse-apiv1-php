@@ -8,15 +8,19 @@ include_once ('komfortkasse_buildorder.php');
 
 // ----- get URL parameters -----
 
-if ($_POST ['action'])
-	$action = urldecode($_POST ['action']);
-else
-	$action = urldecode($_GET ['action']);
+function param($key) {
+	$value = isset($_POST [$key]) ? $_POST [$key] : (isset($_GET [$key]) ? $_GET [$key] : '');
+	return is_string($value) ? urldecode($value) : '';
+}
 
-if ($_POST ['o'])
-	$request = base64_decode(urldecode($_POST ['o']));
-else
-	$request = base64_decode(urldecode($_GET ['o']));
+// ----- check the access code: Komfortkasse sends it with every request -----
+
+if (!hash_equals($accesscode, md5(param('accesscode')))) {
+	exit();
+}
+
+$action = param('action');
+$request = base64_decode(param('o'));
 
 $o = ''; // in $o, we store our output
          
@@ -35,12 +39,8 @@ if ($action == 'readorders') {
 		foreach ( $ex as $id ) {
 			
 			getorder($id);
-			
-			$query_raw = http_build_query($order);
 
-			$query_enc = base64_encode($query_raw);
-			
-			$o = $o . "\n";
+			$o = $o . http_build_query($order) . "\n";
 		}
 	}
 }

@@ -3,7 +3,7 @@
 // Komfortkasse Generic Example
 // just building a "Example Order" here
 
-function getorder($order_number) {
+function getorder($order_number = null) {
 	
 	global $order;
 	
@@ -15,7 +15,7 @@ function getorder($order_number) {
 	$order = array ();
 	$order ['number'] = $order_number;
 	$order ['date'] = date('d.m.Y');
-	$order ['email'] = 'manuel.machajdik@gmail.com'; // enter your E-Mail address here in order to receive the payment information mail
+	$order ['email'] = 'max@example.org'; // enter your E-Mail address here in order to receive the payment information mail
 	$order ['customer_number'] = '12345';
 	$order ['payment_method'] = 'prepayment';
 	$order ['amount'] = 123.45;
@@ -34,7 +34,8 @@ function getorder($order_number) {
 }
 
 function csv($s) {
-	return "\"" . str_replace("\"", "", str_replace(";", ",", utf8_encode($s))) . "\";";
+	// values are expected in UTF-8 (utf8_encode() is deprecated as of PHP 8.2)
+	return "\"" . str_replace("\"", "", str_replace(";", ",", (string) $s)) . "\";";
 }
 
 

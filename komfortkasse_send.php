@@ -22,18 +22,25 @@ $query = http_build_query(array (
 		'key' => $apikey
 ));
 
+// the request carries the API key: no redirects, certificate verified
 $contextData = array (
 		'method' => 'POST',
 		'timeout' => 2,
+		'follow_location' => 0,
 		'header' => "Connection: close\r\n" . "Content-Length: " . strlen($query) . "\r\n",
 		'content' => $query
 );
 
+$sslData = array (
+		'verify_peer' => true,
+		'verify_peer_name' => true
+);
+
 $context = stream_context_create(array (
-		'http' => $contextData
+		'http' => $contextData,
+		'ssl' => $sslData
 ));
 
-// Development: http://localhost:8080/kkos01/api...
 $result = @file_get_contents('https://ssl.komfortkasse.eu/api/shop/neworder.jsf', false, $context);
 
 echo 'Result:<br/><br/>';

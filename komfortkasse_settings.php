@@ -1,12 +1,12 @@
 <?php
 
-// Komfortkasse Generic Example
-// settings only
+// Komfortkasse Generic Example (API v1, outdated: use https://github.com/ltckomfortkasse/komfortkasse-apiv2-php)
+// settings only. Keep these values secret: do not commit them to a public repository.
 
 // API Key, used for communication with the API
-$apikey = 'hGIYrrpQCXOlDZMWdma8YaDZ87To5GAo';
+$apikey = 'YOUR_API_KEY';
 
-// Access Code, used when the API communicates with us
-$accesscode = '16f6aadea2e4f647f3a021f5a8fbee55';
+// MD5 hash of the Access Code, used when the API communicates with us
+$accesscode = 'MD5_HASH_OF_YOUR_ACCESS_CODE';
 
 ?>
